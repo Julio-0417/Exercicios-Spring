@@ -8,10 +8,16 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
+/**
+ * Classe Model para salvar atributos de Usuário
+ * 
+ * @author Julio Santos
+ */
+
 @Entity
 @Table(name = "tb_usuario")
 public class Usuario {
-	
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private long id;
@@ -19,14 +25,24 @@ public class Usuario {
 	@NotNull
 	@Size(min = 2, max = 100)
 	private String nome;
-	
+
 	@NotNull
 	@Size(min = 5, max = 100)
 	private String usuario;
-	
+
 	@NotNull
 	@Size(min = 5, max = 100)
 	private String senha;
+
+	public Usuario() {
+
+	}
+
+	public Usuario(@NotNull String nome, @NotNull String usuario, @NotNull String senha) {
+		this.nome = nome;
+		this.usuario = usuario;
+		this.senha = senha;
+	}
 
 	public long getId() {
 		return id;

@@ -1,12 +1,15 @@
 package org.generation.blogPessoal.service;
 
+import java.util.List;
 import java.nio.charset.Charset;
 import java.util.Optional;
+
 import org.apache.commons.codec.binary.Base64;
 import org.generation.blogPessoal.model.UserLogin;
 import org.generation.blogPessoal.model.Usuario;
 import org.generation.blogPessoal.repository.UsuarioRepository;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -15,6 +18,15 @@ public class UsuarioService {
 	
 	@Autowired
 	private UsuarioRepository repository;
+	
+	public ResponseEntity<List<Usuario>> pegarTodos(){
+		List<Usuario> listaDeUsuario = repository.findAll();
+		if (!listaDeUsuario.isEmpty()) {
+			return ResponseEntity.status(200).body(listaDeUsuario);
+		} else {			
+			return ResponseEntity.status(204).build();
+		}
+	}
 	
 	public Usuario CadastrarUsuario(Usuario usuario) {
 		BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
@@ -34,7 +46,7 @@ public class UsuarioService {
 				
 				String auth = user.get().getUsuario() + ":" + user.get().getSenha();
 				byte[] encodeAuth = Base64.encodeBase64(auth.getBytes(Charset.forName("US-ASCII")));
-				String authHeader = "Basic" + new String(encodeAuth);
+				String authHeader = "Basic " + new String(encodeAuth);
 				
 				user.get().setToken(authHeader);
 				user.get().setNome(usuario.get().getNome());

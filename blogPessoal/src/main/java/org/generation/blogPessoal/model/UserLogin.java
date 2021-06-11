@@ -1,5 +1,10 @@
 package org.generation.blogPessoal.model;
 
+/**
+ * Classe Model para resposta quando o Usuário se logar
+ * @author Julio Santos
+ */
+
 public class UserLogin {
 	
 	private String nome;

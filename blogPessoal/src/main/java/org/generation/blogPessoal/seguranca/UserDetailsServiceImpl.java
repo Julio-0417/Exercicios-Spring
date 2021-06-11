@@ -16,12 +16,15 @@ public class UserDetailsServiceImpl implements UserDetailsService{
 	@Autowired
 	private UsuarioRepository userRepository;
 	
+	/*
+	 * Recupera dados relacionados ao usuário. 
+	 */
 	@Override
 	public UserDetails loadUserByUsername(String userName) throws UsernameNotFoundException {
 		Optional<Usuario> user = userRepository.findByUsuario(userName);
 		user.orElseThrow(() -> new UsernameNotFoundException(userName + " not found. "));
 		
-		return user.map(UserDetailsImpl::new).get();
-	}
+		return user.map(UserDetailsImpl::new).get();		//forma abreviada de map, or else
+	}														// :: instanciando novo objeto
 	
 }

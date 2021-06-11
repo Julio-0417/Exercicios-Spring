@@ -6,6 +6,11 @@ import org.generation.blogPessoal.model.Usuario;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+/*
+ * Permite que as informações do usuário não relacionadas à segurança 
+ * (como endereços de e-mail, números de telefone, etc.) sejam 
+ * armazenadas em um local conveniente.
+ */
 public class UserDetailsImpl implements UserDetails {
 	
 	private static final long serialVersionUID = 1L; //controle interno
@@ -13,13 +18,16 @@ public class UserDetailsImpl implements UserDetails {
 	private String userName;
 	private String password;
 	
-	public UserDetailsImpl (Usuario user) {
+	public UserDetailsImpl (Usuario user) { //construtor de classe
 		this.userName = user.getUsuario();
 		this.password = user.getSenha();
 	}
 	
-	public UserDetailsImpl() {}
+	public UserDetailsImpl() {} //contrutor vazio com nome da classe
 
+	/*
+	 * Métodos de UserDetailsImpl
+	 */
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		// TODO Auto-generated method stub
